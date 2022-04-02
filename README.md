@@ -23,8 +23,8 @@ The sample Github Actions workflow, [access-aks.yml](.github/workflows/access-ak
 [This workflow](.github/workflows/access-aks.yml) performs these steps:
 1. [Az login using workload identity federation](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-azure)
 2. Get kubeconfig
-3. Get kubelogin
-4. Convert kubeconfig into [exec plugin format with workload identity support](https://github.com/Azure/kubelogin#workload-identity)
+3. Get [kubelogin](https://github.com/Azure/kubelogin)
+4. Convert kubeconfig into [exec plugin format with workload identity support](https://github.com/Azure/kubelogin#azure-workload-federated-identity-non-interactive)
 5. Get id-token and save to a file
 6. Run kubectl
 7. Profit!
