@@ -6,8 +6,10 @@ jobs:
   job:
     runs-on: ubuntu-latest
     steps:
+    - name: Dump env
+      run: env
     - run: |
-        IDTOKEN=$(curl -H "Authorization: bearer $" $ -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json" -d "{}" | jq -r '.value')
+        IDTOKEN=$(curl -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" ${ACTIONS_ID_TOKEN_REQUEST_URL} -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json" -d "{}" | jq -r '.value')
         echo $IDTOKEN
         jwtd() {
             if [[ -x $(command -v jq) ]]; then
