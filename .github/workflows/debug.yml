@@ -48,7 +48,7 @@ jobs:
       
     - name: Run kubectl
       env:
-        AZURE_AUTHORITY_HOST: https://login.microsoftonline.com
+        AZURE_AUTHORITY_HOST: https://login.microsoftonline.com/
         AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
         AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       run: |
