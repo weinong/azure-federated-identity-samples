@@ -13,3 +13,20 @@ In [setup.sh](setup.sh), these steps are performed:
 4. Create [federated identity credential](https://docs.microsoft.com/en-us/graph/api/application-post-federatedidentitycredentials?view=graph-rest-beta&tabs=http) using Microsoft Graph api. Note that `audience` has to be `api://AzureADTokenExchange` and the [format](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#example-subject-claims) of `subject` claim.
 
 ### Github Actions
+The sample Github Actions workflow, [access-aks.yml](.github/workflows/access-aks.yml), has prerequisites such that below Actions secrets need to be configured:
+* AZURE_SUBSCRIPTION_ID is the subscription ID in which AKS cluster resides
+* RESOURCE_GROUP_NAME is the resource group in which AKS cluster resides
+* AKS_NAME is the AKS cluster name used in Environment setup
+* AZURE_TENANT_ID is Azure AD tenant ID
+* AZURE_CLIENT_ID is the appID created in Environment setup
+
+[This workflow](.github/workflows/access-aks.yml) performs these steps:
+1. [Az login using workload identity federation](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-azure)
+2. Get kubeconfig
+3. Get kubelogin
+4. Convert kubeconfig into [exec plugin format with workload identity support](https://github.com/Azure/kubelogin#workload-identity)
+5. Get id-token and save to a file
+6. Run kubectl
+7. Profit!
+
+![image](https://user-images.githubusercontent.com/4204090/161405021-c59ccbb7-6180-48b0-bac4-8ac8e6946a2b.png)
