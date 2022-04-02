@@ -9,7 +9,7 @@ jobs:
   job:
     runs-on: ubuntu-latest
     env:
-        AZURE_AUTHORITY_HOST: https://login.microsoftonline.com
+      AZURE_FEDERATED_TOKEN_FILE: ${{ env.RUNNER_TEMP }}/.token
     steps:
     - name: Dump env
       run: env
@@ -36,7 +36,7 @@ jobs:
     - name: Retrieve id-token and store
       run: |
         IDTOKEN=$(curl -sSL -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json" "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=api://AzureADTokenExchange" | jq -r '.value')
-        echo $IDTOKEN > ~/.token
+        echo $IDTOKEN > ${AZURE_FEDERATED_TOKEN_FILE}
         jwtd() {
             if [[ -x $(command -v jq) ]]; then
                 jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' <<< "${1}"
@@ -48,7 +48,10 @@ jobs:
       id: tokenid
       
     - name: Run kubectl
+      env:
+        AZURE_AUTHORITY_HOST: https://login.microsoftonline.com
+        AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       run: |
-        export AZURE_FEDERATED_TOKEN_FILE=${HOME}/.token
         kubectl get nodes
       
