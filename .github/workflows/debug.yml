@@ -1,6 +1,9 @@
 name: Debug build
 on:
   workflow_dispatch:
+  
+permissions:
+  id-token: write
 
 jobs:
   job:
