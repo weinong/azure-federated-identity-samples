@@ -11,9 +11,13 @@ jobs:
     steps:
     - name: Dump env
       run: env
-    - run: |
+    - name: get kubelogin
+      run: |
+        brew install Azure/kubelogin/kubelogin
+    - name: save id-token
+      run: |
         IDTOKEN=$(curl -sSL -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json" "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=api://AzureADTokenExchange" | jq -r '.value')
-        echo $IDTOKEN
+        echo $IDTOKEN > ~/.token
         jwtd() {
             if [[ -x $(command -v jq) ]]; then
                 jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' <<< "${1}"
