@@ -2,7 +2,7 @@
 
 ## Access AKS cluster using Azure Federated Identity from Github Actions (OpenID Connect)
 
-Inspired by a community contribution in (https://github.com/Azure/kubelogin/pull/81), it enables a new pattern to access AKS clusters from Github. Instead of creating credential for a service principal and storing it in Github, it utilizes Github's [OpenID Connect](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-azure) and [Azure Workload Identity Federation](https://docs.microsoft.com/en-us/azure/active-directory/develop/workload-identity-federation) to access AKS clusters using AAD/Aure RBAC in a password-free setting.
+Inspired by a community contribution in (https://github.com/Azure/kubelogin/pull/81), it enables a new pattern to access AKS clusters from Github. Instead of creating credential for a service principal and storing it in Github, it utilizes Github's [OpenID Connect](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-azure) and [Azure Workload Identity Federation](https://docs.microsoft.com/en-us/azure/active-directory/develop/workload-identity-federation) to access AKS clusters using AAD/Azure RBAC in a password-free setting.
 
 ### Environment setup
 In [setup.sh](setup.sh), these steps are performed:
