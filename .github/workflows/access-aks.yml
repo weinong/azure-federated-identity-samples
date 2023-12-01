@@ -21,11 +21,8 @@ jobs:
         run: az aks get-credentials -g ${{ secrets.RESOURCE_GROUP_NAME }} -n ${{ secrets.AKS_NAME }}
 
       - name: Get kubelogin
-        run: |
-          curl -o kubelogin "${{ secrets.SAS_URL }}"
-          chmod +x kubelogin
-          mv kubelogin /usr/local/bin
-      #brew install Azure/kubelogin/kubelogin
+        run: brew install Azure/kubelogin/kubelogin
+
       - name: Convert kubeconfig
         run: kubelogin convert-kubeconfig -l workloadidentity
 
