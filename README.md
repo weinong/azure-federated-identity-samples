@@ -32,4 +32,4 @@ The sample Github Actions workflow, [access-aks.yml](.github/workflows/access-ak
 5. Run kubectl
 6. Profit!
 
-![image](https://user-images.githubusercontent.com/4204090/161405021-c59ccbb7-6180-48b0-bac4-8ac8e6946a2b.png)
+<img width="245" alt="Screenshot 2023-12-01 at 2 11 21 PM" src="https://github.com/weinong/azure-federated-identity-samples/assets/4204090/fe47f4f7-1358-48ea-8529-9b80dbed4242">
