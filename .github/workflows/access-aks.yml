@@ -21,12 +21,6 @@ jobs:
     - name: Get kubeconfig
       run: az aks get-credentials -g ${{ secrets.RESOURCE_GROUP_NAME }} -n ${{ secrets.AKS_NAME }}
         
-    - name: Get kubelogin
-      run: brew install Azure/kubelogin/kubelogin
-        
-    - name: Convert kubeconfig
-      run: kubelogin convert-kubeconfig -l workloadidentity
-        
     - name: Retrieve id-token and store
       run: |
         IDTOKEN=$(curl -sSL -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json" "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=api://AzureADTokenExchange" | jq -r '.value')
@@ -39,6 +33,12 @@ jobs:
         }
         jwtd $IDTOKEN
         echo "::set-output name=idToken::${IDTOKEN}"
+        
+    - name: Get kubelogin
+      run: brew install Azure/kubelogin/kubelogin
+        
+    - name: Convert kubeconfig
+      run: kubelogin convert-kubeconfig -l workloadidentity
       
     - name: Run kubectl
       env:
